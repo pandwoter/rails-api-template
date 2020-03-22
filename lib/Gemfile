@@ -20,9 +20,15 @@ group :development do
   gem 'solargraph'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  # pry-patches
   gem 'awesome_print'
   gem 'coderay'
   gem 'pry'
   gem 'pry-nav'
   gem 'pry-theme'
+  # tests
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'rspec-rails', '~> 3.5'
 end
