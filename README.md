@@ -13,18 +13,18 @@ foo@bar:~$ ./generate_template generate app postgresql test_db_user password SOL
 ```
 
 ## Arguments
-| ARG               | Description                                                                                | 
-| ------------------|:------------------------------------------------------------------------------------------:| 
-| APP_NAME          | your application name                                                                      | 
-| DATABASE          | one of mysql, postgresql, sqlite database                                                  | 
-| DATABASE_USER     | DB user (will be placed in .env file)                                                      | 
-| DATABASE_PASSWORD | DB password (will be placed in .env file)                                                  |
-| SOLARGRAPH        | copy "lib/.solargraph.yml" config                                                          |
-| RUBOCOP           | copy "lib/.rubocop.yml" config                                                             |
-| PRYRC             | copy "lib/.pryrc" config                                                                   |
-| RSPEC             | copy rspec conf files                                                                      |
-| JWT_AUTH_TEMPLATE | simple JWT auth (implementation can be checked in lib/models|controllers|migration|models) |
-| GIT_HOOKS         | initialize git repository in app folder, also git-hooks scripts from "lib/scripts"         |
+| ARG               | Description                                                                                     | 
+| ------------------|:-----------------------------------------------------------------------------------------------:| 
+| APP_NAME          | your application name                                                                           | 
+| DATABASE          | one of mysql, postgresql, sqlite database                                                       | 
+| DATABASE_USER     | DB user (will be placed in .env file)                                                           | 
+| DATABASE_PASSWORD | DB password (will be placed in .env file)                                                       |
+| SOLARGRAPH        | copy "lib/.solargraph.yml" config                                                               |
+| RUBOCOP           | copy "lib/.rubocop.yml" config                                                                  |
+| PRYRC             | copy "lib/.pryrc" config                                                                        |
+| RSPEC             | copy rspec conf files                                                                           |
+| JWT_AUTH_TEMPLATE | simple JWT auth (implementation can be checked in lib/models lib/controllers lib/migration etc) |
+| GIT_HOOKS         | initialize git repository in app folder, also git-hooks scripts from "lib/scripts"              |
 
 ## Installed gems
 * [rack-cors](https://github.com/cyu/rack-cors)
