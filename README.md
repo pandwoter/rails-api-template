@@ -11,6 +11,9 @@
 ## Stack & Features
 * Ruby 2.7.0
 * Rails 6.0.2
+* Configurated solargraph
+* Usefull .pryrc config
+* Configurated rubocop
 * API mode
 * Puma
 * Handling CORS
