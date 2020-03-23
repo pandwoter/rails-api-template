@@ -6,6 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.0'
 
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'dotenv'
 gem 'fast_jsonapi'
 gem 'puma', '~> 4.1'
 gem 'rack-cors'
@@ -26,12 +27,12 @@ group :development do
   # pry-patches
   gem 'awesome_print'
   gem 'coderay'
-  gem 'pry'
+  gem 'pry', git: 'https://github.com/pry/pry.git', ref: '272b3290b5250d28ee82a5ff65aa3b29b825e37b'
   gem 'pry-nav'
   gem 'pry-theme'
   # tests
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
+  gem 'factory_bot'
   gem 'rspec-rails', '~> 3.5'
 end

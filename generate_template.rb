@@ -2,6 +2,7 @@
 
 require 'rubygems'
 require 'bundler/setup'
+require 'yaml'
 require_relative 'utils/logger'
 require_relative 'utils/helpers'
 
@@ -16,6 +17,7 @@ APP_DB_MAP = {
 }.freeze
 
 GEMFILE_PATH = './lib/Gemfile'
+ENV_FILE_PATH = './lib/.env'
 
 module ApiTemplate
   module Cli
@@ -37,6 +39,8 @@ module ApiTemplate
 
         argument :app_name,          required: true,  desc: 'Application name'
         argument :database,          required: true,  desc: 'Application DB (sqlite if not specified)'
+        argument :database_user,     required: true,  desc: 'Application DB user'
+        argument :database_password, required: true,  desc: 'Application DB password'
         argument :solargraph,        required: false, desc: 'Create solargraph config?'
         argument :rubocop,           required: false, desc: 'Create rubocop config?'
         argument :pryrc,             required: false, desc: 'Create pryrc custom config?'
@@ -54,28 +58,35 @@ module ApiTemplate
           raise RailsNotInstalledError unless `gem list` =~ /rails/
 
           LOGGER.info('setting db-adapter gem')
-          LOGGER.info('creating rails folder')
+
           unless %w[mysql postgresql sqlite].include? options[:database]
             raise UnknownDatabase
           end
 
+          LOGGER.info('Adding credentials to ENV file')
+          File.open(ENV_FILE_PATH, 'a') do |f|
+            f.puts '#---dunamic_setted_conntent---'
+            f.puts "DB_USER=#{options[:database_user]}"
+            f.puts "DB_PASSWORD=#{options[:database_password]}"
+          end
+
+          LOGGER.info('creating rails folder')
           system("rails new #{options[:app_name]} --api --database=#{options[:database]}")
-          LOGGER.info('rails folder has been created')
 
           File.open(GEMFILE_PATH, 'a') do |f|
-            f.puts '#---dunamic_setted_gems---'
+            f.puts '#---dunamic_setted_conntent---'
             f.puts '#db-adapter'
             f.puts APP_DB_MAP[options[:database]]
           end
 
           if options[:solargraph]
-            copy_file_with_logging('./lib/.solargraph.yml', (options[:app_name]).to_s)
+            copy_file_with_logging('./lib/.solargraph.yml', options[:app_name])
           end
           if options[:rubocop]
-            copy_file_with_logging('./lib/.rubocop.yml', (options[:app_name]).to_s)
+            copy_file_with_logging('./lib/.rubocop.yml', options[:app_name])
           end
           if options[:pryrc]
-            copy_file_with_logging('./lib/.pryrc', (options[:app_name]).to_s)
+            copy_file_with_logging('./lib/.pryrc', options[:app_name])
           end
 
           if options[:rspec]
@@ -83,8 +94,8 @@ module ApiTemplate
             LOGGER.info('Removing default tests folder')
 
             rm_r "#{options[:app_name]}/test", force: true
-            copy_file_with_logging('./lib/spec',   (options[:app_name]).to_s, recursive: true)
-            copy_file_with_logging('./lib/.rspec', (options[:app_name]).to_s)
+            copy_file_with_logging('./lib/spec',   options[:app_name], recursive: true)
+            copy_file_with_logging('./lib/.rspec', options[:app_name])
           end
 
           if options[:jwt_auth_template]
@@ -103,11 +114,13 @@ module ApiTemplate
             copy_file_with_logging('./lib/config/.',      "#{options[:app_name]}/config",          recursive: true)
           end
 
-          copy_file_with_logging(GEMFILE_PATH, (options[:app_name]).to_s)
+          copy_file_with_logging(GEMFILE_PATH, options[:app_name])
           rm "#{options[:app_name]}/Gemfile.lock", force: true
 
-          LOGGER.info('Cleanning-up generator Gemfile')
-          delete_dunamic_generated_gems(GEMFILE_PATH)
+          copy_file_with_logging(ENV_FILE_PATH, options[:app_name])
+
+          LOGGER.info('Cleanning-up generator Gemfile and ENV')
+          delete_dunamic_generated_gems(GEMFILE_PATH, ENV_FILE_PATH)
 
           if options[:git_hooks]
             copy_file_with_logging('./lib/scripts/.',     "#{options[:app_name]}/scripts",         recursive: true)
@@ -115,14 +128,22 @@ module ApiTemplate
             cd(options[:app_name]) do
               LOGGER.info('Initializing empty git repo')
               system("git init #{options[:app_name]}")
+              system('git add .')
+              system('git commit -m "Init commit"')
 
               LOGGER.info('Making scripts executable')
               system('chmod +x ./scripts/*.bash')
               system('./scripts/install-hooks.bash')
+            end
 
-              LOGGER.info('Commiting!')
-              system('git add .')
-              system('git commit -m "Init commit"')
+            LOGGER.info('Configure database.yml file')
+            config = YAML.load_file("#{options[:app_name]}/config/database.yml")
+
+            config['default']['password'] = "ENV['DB_PASSWORD']"
+            config['default']['username'] = "ENV['DB_USER']"
+
+            File.open("#{options[:app_name]}/config/database.yml", 'w') do |file|
+              file.write config.to_yaml
             end
           end
         end
