@@ -2,8 +2,8 @@
 
 require 'rubygems'
 require 'bundler/setup'
-require_relative 'logger'
-require_relative 'helpers'
+require_relative 'utils/logger'
+require_relative 'utils/helpers'
 
 Bundler.require(:default, :development)
 class RailsNotInstalledError < StandardError; end
