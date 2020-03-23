@@ -17,9 +17,9 @@
 * RSpec testing framework
 
 ## Add Later
--[ ] documentation generator
--[ ] fast serializer
--[ ] git hooks
+- [ ] documentation generator
+- [ ] fast serializer
+- [ ] git hooks
 
 ## Requirements
 * Rails 6.0.2
