@@ -1,5 +1,9 @@
 # Rails API template
 
+## So what it does and how to use
+It's simple scaffolder for modern rails apis. Just run one command and you will have anything to get into development process quickly. 
+![](demo/demo.gif)
+
 ## Installed gems
 * [rack-cors](https://github.com/cyu/rack-cors)
 * [rubocop](https://github.com/rubocop-hq/rubocop)
