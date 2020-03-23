@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Deletes all line after ---dunamic_setted_gems---
+# Deletes all lines after ---dunamic_setted_gems---
 # (allows multiple usage of generator withot gem duplication)
 module FileHelper
   def delete_dunamic_generated_gems(file_path)
