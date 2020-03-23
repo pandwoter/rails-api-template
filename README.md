@@ -23,6 +23,8 @@
 - [ ] documentation generator
 - [ ] fast serializer
 - [ ] git hooks
+- [ ] docker image
+- [ ] CircleCi pipelines
 
 ## Requirements
 * Rails 6.0.2
