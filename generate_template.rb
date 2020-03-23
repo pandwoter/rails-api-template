@@ -3,6 +3,7 @@
 require 'rubygems'
 require 'bundler/setup'
 require_relative 'logger'
+require_relative 'helpers'
 
 Bundler.require(:default, :development)
 class RailsNotInstalledError < StandardError; end
@@ -13,6 +14,8 @@ APP_DB_MAP = {
   'postgresql' => "gem 'pg'",
   'sqlite' => "gem 'sqlite3'"
 }.freeze
+
+GEMFILE_PATH = './lib/Gemfile'
 
 module ApiTemplate
   module Cli
@@ -48,14 +51,15 @@ module ApiTemplate
 
         def call(**options)
           extend FileUtils
-          LOGGER.info('[API generation] started!')
-          LOGGER.info('[API generation] checking rails installation')
+          extend FileHelper
+
+          LOGGER.info('started!')
+          LOGGER.info('checking rails installation')
 
           raise RailsNotInstalledError unless `gem list` =~ /rails/
 
-          LOGGER.info('[API generation] setting db-adapter gem')
-
-          puts '[API generation] creating rails folder'.colorize :green
+          LOGGER.info('setting db-adapter gem')
+          LOGGER.info('creating rails folder')
           unless %w[mysql postgresql sqlite].include? options[:database]
             raise UnknownDatabase
           end
@@ -63,7 +67,8 @@ module ApiTemplate
           system("rails new #{options[:app_name]} --api --database=#{options[:database]}")
           LOGGER.info('rails folder has been created')
 
-          File.open('./lib/Gemfile', 'a') do |f|
+          File.open(GEMFILE_PATH, 'a') do |f|
+            f.puts '---dunamic_setted_gems---'
             f.puts '#db-adapter'
             f.puts APP_DB_MAP[options[:database]]
           end
@@ -90,7 +95,7 @@ module ApiTemplate
           if options[:jwt_auth_template]
             LOGGER.info('Bootstraping simple jwt auth')
 
-            File.open('./lib/Gemfile', 'a') do |f|
+            File.open(GEMFILE_PATH, 'a') do |f|
               f.puts '#JWT-auth gems'
               f.puts "gem 'bcrypt', '~> 3.1.7'"
               f.puts "gem 'jwt'"
@@ -102,8 +107,11 @@ module ApiTemplate
             copy_file_wrapper('./lib/rails_lib/.',   "#{options[:app_name]}/app/lib",         recursive: true)
           end
 
-          copy_file_wrapper('./lib/Gemfile', (options[:app_name]).to_s)
+          copy_file_wrapper(GEMFILE_PATH, (options[:app_name]).to_s)
           rm "#{options[:app_name]}/Gemfile.lock", force: true
+
+          LOGGER.info('Cleanning-up generator Gemfile')
+          delete_dunamic_generated_gems(GEMFILE_PATH)
         end
       end
 
