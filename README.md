@@ -7,6 +7,9 @@
 * [database_cleaner](https://github.com/DatabaseCleaner/database_cleaner)
 * [factory_bot_rails](https://github.com/thoughtbot/factory_bot_rails)
 * [solargraph](https://github.com/castwide/solargraph)
+* [brakeman](https://github.com/presidentbeef/brakeman)
+* [fastJSONapi](https://github.com/Netflix/fast_jsonapi)
+* [swagger](https://github.com/rswag/rswag)
 
 ## Stack & Features
 * Ruby 2.7.0
@@ -18,11 +21,14 @@
 * Puma
 * Handling CORS
 * RSpec testing framework
+* Swagger
+* fastJSONapi serializer
+* Brakeman 
 
 ## Add Later
-- [ ] documentation generator
-- [ ] fast serializer
-- [ ] git hooks
+- [x] documentation generator
+- [x] fast serializer
+- [x] git hooks
 - [ ] docker image
 - [ ] CircleCi pipelines
 
