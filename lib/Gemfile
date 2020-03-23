@@ -32,27 +32,3 @@ group :development do
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.5'
 end
-
-# gem 'bcrypt', '~> 3.1.7'
-# gem 'jwt'
-
-#db-adapter
-gem 'mysql2'
-#db-adapter
-gem 'mysql2'
-#db-adapter
-gem 'mysql2'
-#db-adapter
-gem 'mysql2'
-#db-adapter
-gem 'mysql2'
-#db-adapter
-gem 'mysql2'
-#db-adapter
-gem 'mysql2'
-#db-adapter
-gem 'mysql2'
-#db-adapter
-gem 'mysql2'
-#db-adapter
-gem 'mysql2'

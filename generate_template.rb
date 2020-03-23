@@ -66,8 +66,6 @@ module ApiTemplate
             f << APP_DB_MAP[options[:database]]
           end
 
-          copy_file_wrapper('./lib/Gemfile', (options[:app_name]).to_s)
-          rm "#{options[:app_name]}/Gemfile.lock", force: true
           copy_file_wrapper('./lib/.solargraph.yml', (options[:app_name]).to_s)
           copy_file_wrapper('./lib/.rubocop.yml',    (options[:app_name]).to_s)
           copy_file_wrapper('./lib/.pryrc',          (options[:app_name]).to_s)
@@ -79,10 +77,20 @@ module ApiTemplate
           copy_file_wrapper('./lib/.rspec', (options[:app_name]).to_s)
 
           puts '[API generation] Bootstraping simple jwt auth'.colorize :green
+
+          File.open('./lib/Gemfile', 'a') do |f|
+            f.puts '#JWT-auth gems'
+            f.puts "gem 'bcrypt', '~> 3.1.7'"
+            f.puts "gem 'jwt'"
+          end
+
           copy_file_wrapper('./lib/controllers/.', "#{options[:app_name]}/app/controllers", recursive: true)
           copy_file_wrapper('./lib/models/.',      "#{options[:app_name]}/app/models", recursive: true)
           copy_file_wrapper('./lib/migrations',    "#{options[:app_name]}/db/migrate", recursive: true)
           copy_file_wrapper('./lib/rails_lib/.',   "#{options[:app_name]}/app/lib", recursive: true)
+
+          copy_file_wrapper('./lib/Gemfile', (options[:app_name]).to_s)
+          rm "#{options[:app_name]}/Gemfile.lock", force: true
         end
       end
 
