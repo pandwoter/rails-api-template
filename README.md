@@ -27,6 +27,8 @@ foo@bar:~$ rails new app --api -m template.rb --database postgresql
 * Configurated solargraph
 * Usefull .pryrc config
 * Configurated rubocop
+* Custom pryrc setup
+* Configurated solargraph
 * API mode
 * Puma
 * Handling CORS
