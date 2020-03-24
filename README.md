@@ -6,7 +6,7 @@ It's simple scaffolder for modern rails apis. Just run one command and you will 
 
 ## Usage
 ```console
-foo@bar:~$ git clone https://github.com/pandwoter/rails-6-api-template && cd rails-6-api-template
+foo@bar:~$ git clone https://github.com/pandwoter/rails-api-template && cd rails-6-api-template
 foo@bar:~$ rails new app --api -m template.rb --database postgresql
 ```
 
