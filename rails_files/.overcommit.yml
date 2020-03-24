@@ -1,7 +1,54 @@
-ALL:
-  problem_on_unmodified_line: ignore
-  required: false
-  quiet: false
-RuboCop:
-  enabled: true
-  on_warn: fail # Treat all warnings as failures
+PreCommit:
+  ALL:
+    verify_signatures: false
+
+  RuboCop:
+    enabled: true
+    on_warn: fail
+    required_executable: 'rubocop'
+    command: ['bundle', 'exec', 'rubocop']
+    quiet: false
+
+  BundleCheck:
+    enabled: true
+
+  CaseConflicts:
+    enabled: true
+
+  JsonSyntax:
+    enabled: true
+
+  LineEndings:
+    enabled: true
+
+  RakeTarget:
+    enabled: true
+    targets: ['spec']
+    description: 'Run all tests'
+
+  RailsBestPractices:
+    enabled: true
+
+  RailsSchemaUpToDate:
+    enabled: true
+
+  TrailingWhitespace:
+    enabled: true
+
+PrePush:
+  RSpec:
+    enabled: true
+
+  Brakeman:
+    enabled: true
+
+CommitMsg:
+  ALL:
+    on_warn: fail
+
+  HardTabs:
+    enabled: true
+
+PostCheckout:
+  BundleInstall:
+    enabled: true

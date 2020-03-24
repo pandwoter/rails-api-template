@@ -1,14 +1,16 @@
+require: rubocop-rails
+
 AllCops:
   Exclude:
-    - "db/**/*"
-    - "bin/*"
-    - "config/**/*"
-    - "public/**/*"
-    - "spec/**/*"
-    - "test/**/*"
-    - "vendor/**/*"
-    - "spec/fixtures/**/*"
-    - "tmp/**/*"
+    - 'db/**/*'
+    - 'bin/*'
+    - 'config/**/*'
+    - 'public/**/*'
+    - 'spec/**/*'
+    - 'test/**/*'
+    - 'vendor/**/*'
+    - 'spec/fixtures/**/*'
+    - 'tmp/**/*'
 Style/FrozenStringLiteralComment:
   Enabled: false
 Style/Documentation:
@@ -17,7 +19,7 @@ Layout/EmptyLinesAroundModuleBody:
   EnforcedStyle: empty_lines
 Layout/EmptyLinesAroundClassBody:
   EnforcedStyle: empty_lines
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
 Metrics/ClassLength:
   Max: 250
@@ -30,4 +32,10 @@ Metrics/MethodLength:
 Metrics/CyclomaticComplexity:
   Max: 7
 Rails:
+  Enabled: true
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
   Enabled: true

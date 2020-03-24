@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AuthenticationController < ApplicationController
+
   before_action :authorize_request, except: :login
 
   # POST /auth/login
@@ -21,4 +22,5 @@ class AuthenticationController < ApplicationController
   def login_params
     params.permit(:email, :password)
   end
+
 end

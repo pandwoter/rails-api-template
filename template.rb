@@ -10,7 +10,7 @@ APP_DB_MAP = {
 }.freeze
 
 run 'rm -r ./test'
-run 'cp -r ../rails_files/ ./'
+run 'cp -r ../rails_files/. .'
 
 add_env_creds_to_db(PROJECT_PATH + '/config/database.yml')
 if yes?('Add database credentials to .env? [yes/no]')
@@ -30,10 +30,12 @@ if yes?('Add database credentials to .env? [yes/no]')
   file '.env', <<~CONFIG
     DB_USER=#{db_user}
     DB_PASSWORD=#{db_password}
+    SEEDS_USERS_PASSWORD=strong_password123
   CONFIG
 end
 
 after_bundle do
+  run('rubocop -a')
   rails_command('db:create')
   rails_command('db:migrate')
 
@@ -42,5 +44,5 @@ after_bundle do
   git commit: "-a -m 'Initial commit'"
   run 'overcommit --install'
 
-  rails_command('s')
+  run 'rails s'
 end

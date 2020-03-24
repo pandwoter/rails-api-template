@@ -16,7 +16,7 @@ end
 
 # === HISTORY ===
 Pry.config.history.should_save = true
-Pry::Commands.command /^$/, 'repeat last command' do
+Pry::Commands.command(/^$/, 'repeat last command') do
   _pry_.run_command Pry.history.to_a.last
 end
 
@@ -69,6 +69,7 @@ begin
 
   # If you want awesome_print without automatic pagination, use the line below
   module AwesomePrint
+
     Formatter.prepend(Module.new do
       def awesome_self(object, type)
         if type == :string && @options[:string_limit] && object.inspect.to_s.length > @options[:string_limit]
@@ -78,6 +79,7 @@ begin
         end
       end
     end)
+
   end
 
   AwesomePrint.defaults = {
@@ -86,7 +88,7 @@ begin
     multiline: true
   }
   AwesomePrint.pry!
-rescue LoadError => e
+rescue LoadError
   puts 'gem install awesome_print  # <-- highly recommended'
 end
 
@@ -105,15 +107,19 @@ Pry.config.commands.import default_command_set
 
 # === CONVENIENCE METHODS ===
 class Array
-  def self.sample(n = 10, &block)
-    block_given? ? Array.new(n, &block) : Array.new(n) { |i| i + 1 }
+
+  def self.sample(num = 10, &block)
+    block_given? ? Array.new(num, &block) : Array.new(num) { |i| i + 1 }
   end
+
 end
 
 class Hash
-  def self.sample(n = 10)
-    (97...97 + n).map(&:chr).map(&:to_sym).zip(0...n).to_h
+
+  def self.sample(num = 10)
+    (97...97 + num).map(&:chr).map(&:to_sym).zip(0...num).to_h
   end
+
 end
 
 # === COLOR CUSTOMIZATION ===
@@ -132,12 +138,18 @@ else
 end
 
 module CodeRay
+
   module Encoders
+
     class Terminal < Encoder
+
       # override old colors
       TERM_TOKEN_COLORS.each_pair do |key, value|
         TOKEN_COLORS[key] = value
       end
+
     end
+
   end
+
 end

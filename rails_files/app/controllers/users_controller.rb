@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+
   before_action :authorize_request, except: :create
   before_action :find_user, only: %i[show update destroy]
 
@@ -28,10 +29,10 @@ class UsersController < ApplicationController
 
   # PUT /users/id
   def update
-    unless @user.update(user_params)
-      render json: { errors: @user.errors.full_messages },
-             status: :unprocessable_entity
-    end
+    return if @user.update(user_params)
+
+    render json: { errors: @user.errors.full_messages },
+           status: :unprocessable_entity
   end
 
   # DELETE /users/id
@@ -48,6 +49,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(User.fields.keys)
+    params.require(:user).permit(:name, :username, :email, :password)
   end
+
 end
