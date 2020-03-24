@@ -1,0 +1,33 @@
+AllCops:
+  Exclude:
+    - "db/**/*"
+    - "bin/*"
+    - "config/**/*"
+    - "public/**/*"
+    - "spec/**/*"
+    - "test/**/*"
+    - "vendor/**/*"
+    - "spec/fixtures/**/*"
+    - "tmp/**/*"
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Layout/EmptyLinesAroundModuleBody:
+  EnforcedStyle: empty_lines
+Layout/EmptyLinesAroundClassBody:
+  EnforcedStyle: empty_lines
+Metrics/LineLength:
+  Max: 120
+Metrics/ClassLength:
+  Max: 250
+Metrics/ModuleLength:
+  Max: 250
+Metrics/AbcSize:
+  Max: 25
+Metrics/MethodLength:
+  Max: 20
+Metrics/CyclomaticComplexity:
+  Max: 7
+Rails:
+  Enabled: true

@@ -1,0 +1,7 @@
+ALL:
+  problem_on_unmodified_line: ignore
+  required: false
+  quiet: false
+RuboCop:
+  enabled: true
+  on_warn: fail # Treat all warnings as failures

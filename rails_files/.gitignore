@@ -1,0 +1,15 @@
+.idea/*
+/log/*
+/tmp/*
+/storage/*
+/config/master.key
+/node_modules
+/yarn-error.log
+.byebug_history
+.ruby-version
+.ruby-gemset
+config/database.yml
+coverage/
+public/system/*
+public/uploads/*
+.env
