@@ -30,7 +30,6 @@ if yes?('Add database credentials to .env? [yes/no]')
   file '.env', <<~CONFIG
     DB_USER=#{db_user}
     DB_PASSWORD=#{db_password}
-    SEEDS_USERS_PASSWORD=strong_password123
   CONFIG
 end
 
