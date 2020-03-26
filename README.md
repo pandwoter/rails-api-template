@@ -42,6 +42,7 @@ foo@bar:~$ rails new app --api -m template.rb --database postgresql
 - [x] documentation generator
 - [x] fast serializer
 - [x] git hooks
+- [ ] fix tests and add integration tests
 - [ ] docker image
 - [ ] CircleCi pipelines
 
